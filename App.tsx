@@ -1,12 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React,{useEffect, useState} from 'react';
+import { View, Text, StyleSheet, Dimensions } from "react-native";
+import * as Location from 'expo-location';
 
-export default function App() {
+type Props = {
+  text:string
+}
+
+const App:React.FC<Props> = () => {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+useEffect(()=>{
+    let status = Location.requestPermissionsAsync().then(x => console.log(x));
+    console.log('status', status);
+},[])
+
+  let text:string = 'Whaiting...'
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Text> {text} </Text>
     </View>
   );
 }
@@ -19,3 +33,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
+export default App;
